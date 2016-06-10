@@ -7,10 +7,15 @@
     "build": "tsc",
     "start": "node dist/app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/criticalbh/jmx-slackbot.git"
+  },
   "author": "Admir Sabanovic",
   "license": "WTFPL",
   "dependencies": {
     "botkit": "0.0.5",
+    "config": "^1.21.0",
     "lodash": "^3.10.1",
     "rxjs": "^5.0.0-beta.8"
   },

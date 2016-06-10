@@ -36,7 +36,7 @@ export class JmxTerm {
         return this.onStart();
     }
 
-    onStart() {
+    private onStart() {
         return this.started.asObservable();
         //     .filter(data => {
         //     return data.indexOf('>') > -1;

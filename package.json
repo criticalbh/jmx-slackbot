@@ -1,0 +1,20 @@
+{
+  "name": "jmx-slackbot",
+  "version": "1.0.0",
+  "description": "JMX Slack bot",
+  "main": "app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js"
+  },
+  "author": "Admir Sabanovic",
+  "license": "WTFPL",
+  "dependencies": {
+    "botkit": "0.0.5",
+    "lodash": "^3.10.1",
+    "rxjs": "^5.0.0-beta.8"
+  },
+  "devDependencies": {
+    "typescript": "^1.7.5"
+  }
+}

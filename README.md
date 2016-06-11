@@ -14,5 +14,5 @@ Slackbot for interaction with JMX
 `npm run start`
 
 ##Usage
-Example:
-`@jmxbot: get bean dataSource:name=DataSource, NumActive`
+`@jmxbot: get dataSource:name=DataSource, NumActive`
+

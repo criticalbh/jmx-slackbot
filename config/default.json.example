@@ -1,5 +1,29 @@
 {
   "bot": {
     "slackToken": "xoxb-token"
-  }
+  },
+   "jmx": {
+      "hosts": [
+        {
+          "alias": "Host1",
+          "host": "10.0.0.96",
+          "port": 6002
+        },
+        {
+          "alias": "Host2",
+          "host": "10.0.0.95",
+          "port": 6003
+        },
+        {
+          "alias": "Host3",
+          "host": "10.0.0.95",
+          "port": 6001
+        },
+        {
+          "alias": "Host4",
+          "host": "10.0.0.96",
+          "port": 6001
+        }
+      ]
+    }
 }

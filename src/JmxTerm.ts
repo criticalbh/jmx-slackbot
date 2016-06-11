@@ -1,45 +1,62 @@
+import JmxProcess from './JmxProcess';
+import * as _ from 'lodash';
 const spawn = require('child_process').spawn;
-const exec = require('child_process').exec;
+var config = require('config');
 
-import {Subject, Observable} from 'rxjs';
+import {Subject} from 'rxjs';
+import SimpleHost from './SimpleHost';
 
 declare var process:any;
 
 export class JmxTerm {
     name:string = 'jmxterm-1.0-alpha-4-uber.jar';
     process:any;
-    started:Subject<any>;
+    log:Subject<any>;
+    jmxProcesses:Array<JmxProcess> = [];
+    bot:any;
 
     constructor() {
-        this.started = new Subject();
-        // this.onStart().subscribe((a) => {
-        //     console.log(a);
-        // })
-
+        var hosts = config.get('jmx.hosts');
+        this.log = new Subject();
+        this.openConnections(hosts);
+        this.startOutput();
     }
 
-    start():Observable<any> {
-        this.process = spawn('java', ['-jar', this.name]);
-        this.process.stdout.pipe(process.stdout);
-        // this.process.stderr.on('data', (data) => {
-        //     this.started.next(String(data));
-        // });
-
-        this.process.stderr.on('data', (d) => {
-            console.log(String(d));
+    private openConnections(hosts) {
+        _.forEach(hosts, (host:SimpleHost) => {
+            this.open(host);
         });
-        this.process.stdin.write('open 10.162.0.96:6002\n');
-        this.process.stdin.write('bean dataSource:name=DataSource\n');
-        this.process.stdin.write('get NumActive\n');
-
-
-        return this.onStart();
     }
 
-    private onStart() {
-        return this.started.asObservable();
-        //     .filter(data => {
-        //     return data.indexOf('>') > -1;
-        // });
+    private startOutput() {
+        _.forEach(this.jmxProcesses, (proc:JmxProcess) => {
+            proc.getOutput().subscribe(data => {
+                this.log.next({
+                    'bot': this.bot,
+                    'msg': data
+                });
+            });
+        });
     }
+
+    private open(host:SimpleHost) {
+        let newProcess = new JmxProcess();
+        let process = spawn('java', ['-jar', this.name]);
+        process.stdin.write('open ' + host.host + ':' + host.port + '\n');
+        newProcess.host = host;
+        newProcess.process = process;
+        newProcess.started.next('started');
+        this.jmxProcesses.push(newProcess);
+    }
+
+
+    public getAttribute(bot:any, bean: string, attr: string) {
+        this.bot = bot;
+        _.forEach(this.jmxProcesses, (proc:JmxProcess) => {
+            proc.getAttribute(bean, attr);
+        });
+    }
+    
+
+
 }

@@ -8,6 +8,7 @@ Slackbot for interaction with JMX
 
 ##Setup
 * Rename default.json.example under config dir to default.json and adjust your hosts and slack token.
+* `npm install`
 * `npm run build`
 
 ##Run

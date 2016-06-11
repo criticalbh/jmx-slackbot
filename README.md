@@ -16,3 +16,5 @@ Slackbot for interaction with JMX
 
 ##Usage
 `@jmxbot: get dataSource:name=DataSource, NumActive`
+
+![alt tag](https://github.com/criticalbh/jmx-slackbot/blob/master/example.png)

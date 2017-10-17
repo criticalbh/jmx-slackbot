@@ -1,20 +1,20 @@
 # JMX Slackbot
 Slackbot for interaction with JMX
 
-##Requirements
+## Requirements
 * node v4.3.1 or higher
 * jdk7
 * tsc
 
-##Setup
+## Setup
 * Rename default.json.example under config dir to default.json and adjust your hosts and slack token.
 * `npm install`
 * `npm run build`
 
-##Run
+## Run
 `npm run start`
 
-##Usage
+## Usage
 `@jmxbot: get dataSource:name=DataSource, NumActive`
 
 ![alt tag](https://github.com/criticalbh/jmx-slackbot/blob/master/example.png)
